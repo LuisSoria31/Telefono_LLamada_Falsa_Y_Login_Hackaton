@@ -1,20 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-  export function CallSimulator() {
+export function CallSimulator() {
   const [isCalling, setIsCalling] = useState(false);
+  const [audio] = useState(new Audio('/voz.pm3')); // Instancia única del audio
 
+  // Función para iniciar la llamada y reproducir el audio
   const startCall = () => {
     setIsCalling(true);
-    const audio = new Audio('/voz.mp3'); // Asegúrate de que la ruta sea correcta
-    audio.play();
 
-    // Detener la llamada falsa después de 10 segundos (puedes ajustar esto)
+    // Verifica si el audio puede ser reproducido
+    audio.play().catch((error) => {
+      console.error("Error al reproducir el audio:", error);
+    });
+
+    // Detener la llamada después de 10 segundos
     setTimeout(() => {
-      audio.pause();
-      audio.currentTime = 0; // Reinicia el audio
-      setIsCalling(false);
+      endCall();
     }, 10000);
   };
+
+  // Función para detener el audio y reiniciar
+  const endCall = () => {
+    audio.pause();
+    audio.currentTime = 0; // Reiniciar el audio
+    setIsCalling(false);
+  };
+
+  // Efecto de limpieza cuando el componente se desmonta
+  useEffect(() => {
+    return () => {
+      audio.pause();
+      audio.currentTime = 0; // Reiniciar audio si el componente se desmonta
+    };
+  }, [audio]);
 
   return (
     <div>

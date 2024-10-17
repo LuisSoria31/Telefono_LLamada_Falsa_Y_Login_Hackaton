@@ -1,15 +1,67 @@
-.App {
-  text-align: center;
-  margin-top: 50px;
+/* Contenedor centrado con un fondo de gradiente */
+.call-simulator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #74ebd5, #acb6e5);
+  font-family: 'Poppins', sans-serif;
 }
 
-button {
-  padding: 15px 30px;
-  font-size: 16px;
+/* Estilo del botón */
+.call-button {
+  background: linear-gradient(145deg, #ffafbd, #ffc3a0);
+  border: none;
+  color: white;
+  padding: 20px 40px;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 30px;
   cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
 
-button:disabled {
-  background-color: #ccc;
+/* Efecto hover con sombra más fuerte */
+.call-button:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transform: translateY(-3px);
+}
+
+/* Efecto de clic */
+.call-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 5px 5px rgba(0, 0, 0, 0.12);
+}
+
+/* Estilo de botón cuando está deshabilitado */
+.call-button:disabled {
+  background: #d3d3d3;
+  color: #7d7d7d;
   cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Efecto de fondo dinámico dentro del botón */
+.call-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 60%);
+  transition: all 0.5s;
+  z-index: -1;
+}
+
+.call-button:hover::before {
+  top: 0;
+  left: 0;
+  width: 300%;
+  height: 300%;
 }
